@@ -6,14 +6,18 @@ const followSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
-    followedBy: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
-    },
-    followedTo: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User'
-    },
+    followedBy: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    followedTo: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
     totalFollowers: {
         type: Number,
         reuired: true,
@@ -25,6 +29,6 @@ const followSchema = new mongoose.Schema({
         default: 0
     }
 
-}, {timestamps: true})
+}, { timestamps: true })
 
 export const Follow = mongoose.model("Follow", followSchema)
