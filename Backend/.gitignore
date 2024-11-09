@@ -1,0 +1,59 @@
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Debug and test
+coverage/
+.nyc_output/
+.vscode/
+.idea/
+*.swp
+
+# Build files
+dist/
+build/
+temp/
+
+# Database and other local development files
+*.sqlite
+*.db
+.dump
+.env.local
+
+# Ignore uploaded files
+/public/uploads/
+public/temp/
+
+# Cache directories and files
+.cache/
+.next/
+.sass-cache/
+.parcel-cache/
+.terraform/
+.fusebox/
+node_repl_history
+*.pyc
+.cache-loader/
+.serve/
+
+# Miscellaneous
+*.bak
+*.pid
+*.seed
+*.pid.lock
