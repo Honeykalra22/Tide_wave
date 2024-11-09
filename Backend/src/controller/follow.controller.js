@@ -53,7 +53,45 @@ const followedBy = asyncHandler(async(req, res) => {
 
 const followedTo = asyncHandler(async(req, res) => {
 
-    
+    const userId = req.user?._id
+    if(!userId) {
+        throw new apiError(400, "User id is missing")
+    }
+
+    const follow = await User.aggregate([
+        {
+            $match: {
+                _id: mongoose.Types.ObjectId(userId)
+            }
+        },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'followedTo',
+                foreignField: '_id',
+                as: 'following',
+                pipeline: [
+                    {
+                        $project: {
+                            username: 1,
+                            fullname: 1,
+                            avatar: 1
+                        }
+                    }
+                ]
+            }
+        }
+    ])
+
+    if(!follow || follow.length === 0) {
+        throw new apiError(404, "User is not found")
+    }
+
+    return res
+    .status(200)
+    .json(200, 
+        new apiResponse(200, follow[0], "followings are fetched successfully")
+    )
 
 })
 
