@@ -18,7 +18,7 @@ router.route('/addpost/:userId').post(
     addPost
     )
 router.route('/deletepost/:postId').delete(deletePost)
-router.route('/:postId/like').post(likePost)
+router.route('/:tweetId/like').post(likePost)
 
 
 export default router

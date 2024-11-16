@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { Like } from "../model/like.model.js";
 import { Post } from "../model/post.model.js";
 import { Tweet } from "../model/tweet.model.js";
@@ -60,12 +60,44 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 //     }
 // })
 
-const likePost = asyncHandler(async (req, res) => {
+const likeTweet = asyncHandler(async (req, res) => {
 
-    const { postId } = req.params
+    const { tweetId } = req.params
     const userId = req.user?._id
 
-    const post = await Post.findById(postId)
+    const tweet = await Tweet.findById(tweetId)
+
+    if (!tweet) {
+        throw new apiError(404, "post is not found")
+    }
+
+    // check if post is already liked or not, if not then like the post and increase the cnt by 1
+    if (!tweet.likedBy.some( id => id.toString() === userId.toString())) {
+        tweet.likedBy.push(tweetId)
+        tweet.likedCount += 1;
+    }
+    else {
+        tweet.likedBy = tweet.likedBy.filter(id => id.toString() !== userId.toString())
+        tweet.likedCount -= 1
+        if(tweet.likedCount < 0) {
+            tweet.likedCount = 0;
+        }
+    }
+    await tweet.save()
+
+    return res
+        .status(200)
+        .json(
+            new apiResponse(200, tweet, "post is liked successfully")
+        )
+})
+
+const likePost = asyncHandler(async (req, res) => {
+
+    const { tweetId } = req.params
+    const userId = req.user?._id
+
+    const post = await (Post.findById(tweetId) || Tweet.findById(tweetId))
 
     if (!post) {
         throw new apiError(404, "post is not found")
@@ -95,6 +127,9 @@ const likePost = asyncHandler(async (req, res) => {
 const getPostLikes = asyncHandler(async (req, res) => {
     const { postId } = req.params;
 
+    if(!isValidObjectId(postId)){
+        throw new apiError(400, "Invalid PostId");
+    }
     const likedData = await Post.aggregate([
         {
             $match: {
@@ -119,6 +154,7 @@ const getPostLikes = asyncHandler(async (req, res) => {
 })
 
 export {
+    likeTweet,
     likePost,
     getPostLikes,
 }

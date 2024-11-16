@@ -5,8 +5,14 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      textShadow: {
+        'xl': '2px 2px 8px rgba(0, 0, 0, 0.4)',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-textshadow'), // Use a plugin for text shadows
+  ],
 }
 
