@@ -15,7 +15,7 @@ const followedBy = asyncHandler(async (req, res) => {
   const user = await User.aggregate([
     {
       $match: {
-        _id: mongoose.Types.ObjectId(userId),
+        _id: new mongoose.Types.ObjectId(userId),
       },
     },
     {
@@ -56,7 +56,7 @@ const followedTo = asyncHandler(async (req, res) => {
   const follow = await User.aggregate([
     {
       $match: {
-        _id: mongoose.Types.ObjectId(userId),
+        _id: new mongoose.Types.ObjectId(userId),
       },
     },
     {

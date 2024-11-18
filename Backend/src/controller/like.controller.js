@@ -68,10 +68,9 @@ const likeTweet = asyncHandler(async (req, res) => {
     const tweet = await Tweet.findById(tweetId)
 
     if (!tweet) {
-        throw new apiError(404, "post is not found")
+        throw new apiError(404, "Tweet is not found")
     }
 
-    // check if post is already liked or not, if not then like the post and increase the cnt by 1
     if (!tweet.likedBy.some( id => id.toString() === userId.toString())) {
         tweet.likedBy.push(tweetId)
         tweet.likedCount += 1;
@@ -94,10 +93,10 @@ const likeTweet = asyncHandler(async (req, res) => {
 
 const likePost = asyncHandler(async (req, res) => {
 
-    const { tweetId } = req.params
+    const { postId } = req.params
     const userId = req.user?._id
 
-    const post = await (Post.findById(tweetId) || Tweet.findById(tweetId))
+    const post = await (Post.findById(postId))
 
     if (!post) {
         throw new apiError(404, "post is not found")

@@ -9,22 +9,22 @@ import { isValidObjectId } from "mongoose";
 
 const addPost = asyncHandler(async (req, res) => {
 
-    /*
-        1. add photo
-        2. discription of photo
-        3. user
-        4. 
-    */
-
-    const { userId } = req.params
-    console.log(userId)
+    const userId = req.user?._id
     const user = await User.findById(userId)
 
     if (!user) {
         throw new apiError(404, "user is not found")
     }
     console.log("File will start from now")
-    const postpath = req?.files?.postFile?.[0] || "file error: file not found"
+    const postpath = req?.files?.post?.[0]
+    // let postpath;
+    // if (
+    //   req.files &&
+    //   Array.isArray(req.files.post) &&
+    //   req.files.post.length > 0
+    // ) {
+    //     postpath = req.files.post[0].path;
+    // }
     console.log(req.files)
 
     // const { postpath } = req.body
@@ -34,7 +34,7 @@ const addPost = asyncHandler(async (req, res) => {
     }
 
     const postFilePath = postpath.path;
-
+    console.log('Post Path is: ', postFilePath)
     const post = await uploadOnCloudinary(postFilePath)
     if (!post.url) {
         throw new apiError(500, "post is not uploaded on cloudinary")
@@ -45,7 +45,9 @@ const addPost = asyncHandler(async (req, res) => {
     const posttouploaded = new Post({
         owner: userId,
         post: post.url,
-        description
+        description,
+        likedBy: [],
+        views: 0
     })
 
     const savedPost = await posttouploaded.save()

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { addTweet, deleteTweet, displayAllTweetsAnduser } from "../controller/tweet.controller.js";
 import { verifyjwt } from "../middleware/auth.middleware.js";
-import { likePost } from "../controller/like.controller.js";
+import { likeTweet } from "../controller/like.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 
 const tweetrouter = Router()
@@ -10,7 +10,7 @@ tweetrouter.use(verifyjwt, upload.none())
 
 tweetrouter.route('/addtweets').post( addTweet)
 tweetrouter.route('/delete/:id').delete( deleteTweet)
-tweetrouter.route('/:tweetId/like').post( likePost)
+tweetrouter.route('/:tweetId/like').post( likeTweet)
 tweetrouter.route('/details').get(displayAllTweetsAnduser)
 
 export default tweetrouter

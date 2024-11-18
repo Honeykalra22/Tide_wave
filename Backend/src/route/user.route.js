@@ -23,9 +23,15 @@ router.route('/register').post(
 router.route('/login').post(loginUser)
 router.route('/logout').post(verifyjwt, logoutUser)
 router.route('/updatepassword').post(updatePassword)
-router.route('/changeAvatar').patch(verifyjwt, changeAvatar)
+router.route('/changeAvatar').patch(verifyjwt, 
+    upload.single('avatar'),
+    changeAvatar
+)
 router.route('/changeProfileDetail').get(verifyjwt, changeProfileDetails)
-router.route('/changeCoverImage').get(verifyjwt, changeCoverImage)
+router.route('/changeCoverImage').post(verifyjwt, 
+    upload.single('coverImage'),
+    changeCoverImage
+)
 router.route('/getCurrentUser').get(verifyjwt, getCurrentUser)
 router.route('/follow/:targetId').post(verifyjwt, followTheUser)
 router.route('/follower').get(verifyjwt, followedBy)

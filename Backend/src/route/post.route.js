@@ -4,21 +4,20 @@ import { addPost, deletePost } from "../controller/post.controller.js";
 import { upload } from "../middleware/multer.middleware.js";
 import { likePost } from "../controller/like.controller.js";
 
-const router = Router()
+const router = Router();
 
-router.use(verifyjwt)
+router.use(verifyjwt);
 
-router.route('/addpost/:userId').post(
-    upload.fields([
-        {
-            name: "postFile",
-            maxCount: 1
-        }
-    ]),
-    addPost
-    )
-router.route('/deletepost/:postId').delete(deletePost)
-router.route('/:tweetId/like').post(likePost)
+router.route("/addpost").post(
+  upload.fields([
+    {
+      name: "post",
+      maxCount: 1,
+    },
+  ]),
+  addPost
+);
+router.route("/deletepost/:postId").delete(deletePost);
+router.route("/:tweetId/like").post(likePost);
 
-
-export default router
+export default router;

@@ -262,7 +262,7 @@ const changeProfileDetails = asyncHandler(async (req, res) => {
 });
 
 const changeCoverImage = asyncHandler(async (req, res) => {
-  const coverImagepath = req.file?.coverImage;
+  const coverImagepath = req.file?.path;
   if (!coverImagepath) {
     throw new apiError(500, "cover image is required");
   }
@@ -372,8 +372,10 @@ const getUserDetails = asyncHandler(async (req, res) => {
             as: "post",
             in: {
               _id: "$$post._id",
+              post: '$$post.post',
               description: "$$post.description",
               views: "$$post.views",
+              updatedAt: "$$post.updatedAt",
               likedBy: { $ifNull: ["$$post.likedBy", []] },
               likedCount: { $size: { $ifNull: ["$$post.likedBy", []] } },
             },
@@ -386,6 +388,7 @@ const getUserDetails = asyncHandler(async (req, res) => {
             in: {
               _id: "$$tweet._id",
               content: "$$tweet.content",
+              updatedAt: "$$tweet.updatedAt",
               likedBy: { $ifNull: ["$$tweet.likedBy", []] },
               likedCount: { $size: { $ifNull: ["$$tweet.likedBy", []] } },
             },

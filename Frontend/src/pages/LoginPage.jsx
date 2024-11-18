@@ -36,7 +36,7 @@ const Login = () => {
                 const username = response.data.data.user.username
                 console.log('Login successful');
                 // navigate('/dashboard/username');
-                navigate(`/dashboard/${username}`)
+                navigate(`/profile/${username}`)
             } else {
                 console.error('Login failed: Token is undefined');
             }
