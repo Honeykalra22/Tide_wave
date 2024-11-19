@@ -234,9 +234,9 @@ const changeAvatar = asyncHandler(async (req, res) => {
 });
 
 const changeProfileDetails = asyncHandler(async (req, res) => {
-  const { fullname, username, age } = req.body;
+  const { fullname, username } = req.body;
 
-  if (!fullname || !username || !age) {
+  if (!fullname || !username) {
     throw new apiError(500, "make some input for updated");
   }
 
@@ -246,7 +246,6 @@ const changeProfileDetails = asyncHandler(async (req, res) => {
       $set: {
         username: username,
         fullname: fullname,
-        age: age,
       },
     },
     {

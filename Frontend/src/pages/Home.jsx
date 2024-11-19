@@ -96,11 +96,13 @@ const Home = () => {
           <p className="text-xl font-bold">{user.tweets.length}</p>
           <p className="text-xl text-gray-500">Tweets</p>
         </div>
+        <Link to='/updatedetails'>
         <div className="">
           <button className="bg-gray-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-gray-600 transition-all">
             Edit Profile
           </button>
         </div>
+        </Link>
       </div>
       <hr />
       {/* start posts and tweets done by user with all information */}

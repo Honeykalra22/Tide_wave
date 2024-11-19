@@ -11,7 +11,8 @@ import Sidebar from './pages/Sidebar'
 import { useContext } from 'react'
 import { ThemeContext } from './Context/ThemeContext'
 import ImageUploader from './components/AddPost'
-import MessgageSend from './pages/MessageSend'
+// import MessgageSend from './pages/MessageSend'
+import UpdateDetails from './components/UpdateDetails'
 
 function App() {
   const { darkMode } = useContext(ThemeContext)
@@ -50,7 +51,8 @@ function App() {
             {/* <Route path="/profile" element={<Profile />} /> */}
             <Route path="/dashboard/:username" element={<Dashboard />} />
             <Route path='/addpost' element = {<ImageUploader/>} />
-            <Route path='/message' element = {<MessgageSend/>} />
+            {/* <Route path='/message' element = {<MessgageSend/>} /> */}
+            <Route path='/updatedetails' element = {<UpdateDetails/>} />
           </Routes>
         </div>
 

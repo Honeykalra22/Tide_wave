@@ -27,7 +27,7 @@ router.route('/changeAvatar').patch(verifyjwt,
     upload.single('avatar'),
     changeAvatar
 )
-router.route('/changeProfileDetail').get(verifyjwt, changeProfileDetails)
+router.route('/changeProfileDetail').patch(verifyjwt, changeProfileDetails)
 router.route('/changeCoverImage').post(verifyjwt, 
     upload.single('coverImage'),
     changeCoverImage

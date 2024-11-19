@@ -7,13 +7,15 @@ export const AuthContextProvider = ({ children }) => {
   const url = "http://localhost:8000/api/v2";
 
   const [user, setUser] = useState(null);
+  const [updated, setUpdated] = useState(null);
+
   const token = localStorage.getItem("accessToken");
 
   const userdetails = async () => {
     try {
       const response = await axios.get(`${url}/user/details`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          Authorization: `Bearer ${token}`,
         },
       });
       const followResponse = await axios.get(`${url}/user/following`, {
@@ -34,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
         following: followResponse.data.data.following.length,
       });
       console.log("user data is: ", userdata);
-      console.log('Tweet Id is: ', userdata.userTweets[0]._id)
+      console.log("Tweet Id is: ", userdata.userTweets[0]._id);
       // console.log('avatar is: ', userdata.avatar)
     } catch (error) {
       console.error("Error fetching user details:", error);
