@@ -48,7 +48,7 @@ function App() {
             <Route path="/register" element={<Register />} />
 
               <Route path='/:username' element={<Home />} />
-              <Route path=".:username/profile" element={<Profile />} />
+              <Route path="/:username/profile" element={<Profile />} />
               <Route path="/:username/search" element={<Search />} />
               <Route path="/:username/notification" element={<div>Notification Page (Add component here)</div>} />
               <Route path="/:username/explore" element={<div>Explore Page (Add component here)</div>} />

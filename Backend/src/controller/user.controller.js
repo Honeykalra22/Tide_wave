@@ -460,6 +460,37 @@ const getUserDetails = asyncHandler(async (req, res) => {
     );
 });
 
+const searchUser = asyncHandler(async (req, res) => {
+
+  const userId = req.user?._id
+  if (!isValidObjectId(userId)) {
+    throw new apiError(400, "User id is not valid")
+  }
+
+  const {username}  = req.body
+  if (!username) {
+    throw new apiError(404, `Search Parameter ${username} is required`)
+  }
+
+  const searchResult = await User.find({
+    username: {
+      $regex: username,
+      $options: 'i'
+    }
+  })
+
+  if(searchResult.length === 0) {
+    throw new apiError(404, `No user is found with username : ${username}`)
+  }
+
+  return res
+  .status(200)
+  .json(200, 
+    new apiResponse(200, searchResult, `${username} is find`)
+  )
+
+})
+
 export {
   loginUser,
   registerUser,
@@ -470,4 +501,5 @@ export {
   changeCoverImage,
   getCurrentUser,
   getUserDetails,
+  searchUser,
 };

@@ -1,6 +1,6 @@
 
 import { Router } from 'express'
-import { changeAvatar, changeCoverImage, changeProfileDetails, getCurrentUser, getUserDetails, loginUser, logoutUser, registerUser, updatePassword } from '../controller/user.controller.js'
+import { changeAvatar, changeCoverImage, changeProfileDetails, getCurrentUser, getUserDetails, loginUser, logoutUser, registerUser, searchUser, updatePassword } from '../controller/user.controller.js'
 import { upload } from '../middleware/multer.middleware.js'
 import { verifyjwt } from '../middleware/auth.middleware.js'
 import { followedBy, followedTo, followTheUser } from '../controller/follow.controller.js'
@@ -37,5 +37,6 @@ router.route('/follow/:targetId').post(verifyjwt, followTheUser)
 router.route('/follower').get(verifyjwt, followedBy)
 router.route('/following').get(verifyjwt, followedTo)
 router.route('/details').get(verifyjwt, getUserDetails)
+router.route('/search').post(verifyjwt, searchUser)
 
 export default router
