@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
 function Navbar() {
   const { darkMode, toggleTheme } = useContext(ThemeContext);
+  const {user} = useContext(AuthContext)
 
   return (
     <header
@@ -11,7 +13,7 @@ function Navbar() {
         darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900 shadow-md"
       }`}
     >
-      <Link to="/dashboard">
+      <Link to={`/${user?.username}`}>
         <div className="text-center selection:bg-none">
           <h1
             className="text-3xl text-sky-500 font-bold cursor-pointer"
@@ -20,7 +22,7 @@ function Navbar() {
             Tide-Wave
           </h1>
           <p className="text-pink-500 capitalize hover:underline cursor-pointer">
-            connect to world
+            connect to the world
           </p>
         </div>
       </Link>

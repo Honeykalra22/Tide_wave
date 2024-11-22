@@ -68,3 +68,15 @@
 // };
 
 // export default MessageSend;
+
+
+
+import React from 'react'
+
+function MessageSend() {
+  return (
+    <div>MessageSend</div>
+  )
+}
+
+export default MessageSend

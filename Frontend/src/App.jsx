@@ -5,23 +5,27 @@ import Home from './pages/Home'
 import Footer from './components/Footer'
 import LoginPage from './pages/LoginPage'
 import Register from './pages/Register'
-import Profile from './pages/Profile'
-import Dashboard from './pages/DashBoard'
 import Sidebar from './pages/Sidebar'
 import { useContext } from 'react'
 import { ThemeContext } from './Context/ThemeContext'
 import ImageUploader from './components/AddPost'
-// import MessgageSend from './pages/MessageSend'
-import UpdateDetails from './components/UpdateDetails'
+import MessgageSend from './pages/MessageSend'
+import EditDetails from './pages/EditDetails'
+import Search from './pages/Search'
+import TweetBox from './pages/Tweet'
+import Profile from './pages/Profile'
+import { AuthContext } from './Context/AuthContext'
+import LogoutPage from './pages/LogoutPage'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const { darkMode } = useContext(ThemeContext)
+  const { token } = useContext(AuthContext)
 
   return (
     <div
-      className={`${
-        darkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-900"
-      } min-h-screen flex flex-col`}
+      className={`${darkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-900"
+        } min-h-screen flex flex-col`}
     >
       <BrowserRouter>
         <div className="fixed top-0 left-0 right-0 z-10 w-full">
@@ -30,33 +34,34 @@ function App() {
 
         {/* Sidebar fixed on the left */}
         <div
-          className={`${
-            darkMode ? "bg-gray-800" : "bg-gray-100"
-          }  h-full mt-28 w-[16rem] fixed`}
+          className={`${darkMode ? "bg-gray-800" : "bg-gray-100"
+            }  h-full mt-28 w-[16rem] fixed`}
         >
           <Sidebar />
         </div>
 
-        {/* Main Content */}
         <div className="ml-64 mt-28 flex-1 px-4 py-4">
+
           <Routes>
-            <Route path="/profile/:username" element={<Home />} />
-            <Route path="/search" element={<div>Search Page (Add component here)</div>} />
-            <Route path="/notification" element={<div>Notification Page (Add component here)</div>} />
-            <Route path="/explore" element={<div>Explore Page (Add component here)</div>} />
-            <Route path="/career" element={<div>Career Page (Add component here)</div>} />
+
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/feedback" element={<div>Feedback Page (Add component here)</div>} />
-            {/* <Route path="/profile" element={<Profile />} /> */}
-            <Route path="/dashboard/:username" element={<Dashboard />} />
-            <Route path='/addpost' element = {<ImageUploader/>} />
-            {/* <Route path='/message' element = {<MessgageSend/>} /> */}
-            <Route path='/updatedetails' element = {<UpdateDetails/>} />
+
+              <Route path='/:username' element={<Home />} />
+              <Route path=".:username/profile" element={<Profile />} />
+              <Route path="/:username/search" element={<Search />} />
+              <Route path="/:username/notification" element={<div>Notification Page (Add component here)</div>} />
+              <Route path="/:username/explore" element={<div>Explore Page (Add component here)</div>} />
+              <Route path="/:username/career" element={<div>Career Page (Add component here)</div>} />
+              <Route path="/:username/feedback" element={<div>Feedback Page (Add component here)</div>} />
+              <Route path="/:username/tweet" element={<TweetBox />} />
+              <Route path='/:username/addpost' element={<ImageUploader />} />
+              <Route path='/:username/message' element={<MessgageSend />} />
+              <Route path='/:username/editProfile' element={<EditDetails />} />
+
+            <Route path='*' element={<div>404 page is not found</div>} />
           </Routes>
         </div>
-
-        {/* Footer, positioned at the bottom */}
         <div className="ml-64 mt-auto">
           <Footer />
         </div>

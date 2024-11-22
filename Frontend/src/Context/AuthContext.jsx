@@ -9,7 +9,7 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [updated, setUpdated] = useState(null);
 
-  const token = localStorage.getItem("accessToken");
+  const  token = localStorage.getItem("accessToken");
 
   const userdetails = async () => {
     try {

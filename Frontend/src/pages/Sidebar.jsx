@@ -2,12 +2,13 @@ import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Context/AuthContext";
+import axios from "axios";
 
 function Sidebar() {
   const { darkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
 
-  const { userdetails, user } = useContext(AuthContext);
+  const { userdetails, user, url, token } = useContext(AuthContext);
 
   const isLoggedIn = !!localStorage.getItem("accessToken");
 
@@ -15,18 +16,36 @@ function Sidebar() {
     if (isLoggedIn) {
       userdetails();
     }
-    // else {
-    //   setUser(null);
-    // }
+    else {
+      return navigate('/logout')
+    }
   }, [isLoggedIn]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    navigate("/login");
+  const handleLogout = async() => {
+    try {
+      const response = await axios.post(`${url}/user/logout`, 
+        {
+          token: ''
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+
+      if(response.status === 200) {
+        console.log('logout function is running ');
+        localStorage.removeItem('accessToken')
+        navigate('/login')
+      }
+    } catch (error) {
+      console.error("Error while logging out:", error.response?.data || error.message);
+    }
   };
 
   return (
+
     <div className={`${
       darkMode ? "bg-gray-800 text-white":"bg-gray-100 text-black"
     } flex flex-col lg:flex-row `}>
@@ -38,7 +57,7 @@ function Sidebar() {
         <nav className="space-y-5 flex flex-col">
           {/* User Profile */}
           {isLoggedIn && user && (
-            <Link to={`/profile/${user.username}`}>
+            <Link to={`/${user.username}/profile`}>
               <div className="flex items-center space-x-4 mb-4">
                 <img
                   // src={user.avatar}
@@ -60,7 +79,7 @@ function Sidebar() {
             </Link>
           )}
           <Link
-            to="/dashboard"
+            to={`/${user?.username}`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -86,7 +105,7 @@ function Sidebar() {
             </div>
           </Link>
           <Link
-            to={`/search`}
+            to={`/${user?.username}/search`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -113,7 +132,7 @@ function Sidebar() {
             </div>
           </Link>
           <Link
-            to="/message"
+            to={`/${user?.username}/message`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -140,7 +159,7 @@ function Sidebar() {
             </div>
           </Link>
           <Link
-            to={`/dashboard/${user?.username}`}
+            to={`/${user?.username}/tweet`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -167,7 +186,7 @@ function Sidebar() {
             </div>
           </Link>
           <Link
-            to={`/addpost`}
+            to={`/${user?.username}/addpost`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -199,7 +218,7 @@ function Sidebar() {
             </div>
           </Link>
           <Link
-            to={`/profile/${user?.username}`}
+            to={`/${user?.username}/profile`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -225,7 +244,7 @@ function Sidebar() {
             </div>
           </Link>
           <Link
-            to="/setting"
+            to={`${user?.username}/editProfile`}
             className={`block text-lg ${
               darkMode
                 ? "text-gray-300 hover:text-white"
@@ -283,6 +302,7 @@ function Sidebar() {
         </nav>
       </aside>
     </div>
+
   );
 }
 
