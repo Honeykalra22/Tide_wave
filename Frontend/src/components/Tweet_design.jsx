@@ -3,7 +3,7 @@ import { AuthContext } from "../Context/AuthContext";
 import { ThemeContext } from "../Context/ThemeContext";
 import { Link } from "react-router-dom";
 
-const TweetDesign = (tweet) => {
+const TweetDesign = ({avatar, username, content, updatedAt, _id}) => {
   const { user, likeTweet } = useContext(AuthContext);
   const { darkMode } = useContext(ThemeContext);
 
@@ -15,17 +15,17 @@ const TweetDesign = (tweet) => {
         }`}
       >
         {/* User Info */}
-        <Link to={`/dashboard/${user.username}`}>
+        <Link to={`/${username}/profile`}>
           <div className="flex items-center space-x-4">
             <img
               src={
-                user.avatar ||
+                avatar ||
                 "https://cdn.pixabay.com/photo/2024/10/18/03/16/ai-generated-9129245_1280.jpg"
               }
               alt="User Avatar"
               className="w-8 h-8 rounded-full border border-gray-400"
             />
-            <h3 className="font-semibold">{user.username}</h3>
+            <h3 className="font-semibold">{username}</h3>
           </div>
         </Link>
 
@@ -36,17 +36,17 @@ const TweetDesign = (tweet) => {
           }`}
         >
           {/* {new Date(tweet.updatedAt).toLocaleDateString("en-GB")} */}
-          {new Date(tweet.updatedAt).toLocaleDateString()}
+          {new Date(updatedAt).toLocaleDateString()}
         </span>
 
         {/* Tweet Content */}
-        <p className="mt-2">{tweet.content}</p>
+        <p className="mt-2">{content}</p>
 
         {/* Action Buttons */}
         <div className="flex space-x-4 my-3 items-center">
           <button
             className="flex items-center border px-3 py-1 rounded-xl space-x-2"
-            onClick={() => likeTweet(tweet._id)}
+            onClick={() => likeTweet(_id)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

@@ -1,47 +1,48 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { ThemeContext } from "../Context/ThemeContext";
+import { Link } from "react-router-dom";
 
-const Postdesign = ({ post }) => {
+const Postdesign = ({ avatar, fullname,username, updatedAt, description, post }) => {
   const { user } = useContext(AuthContext);
   const { darkMode } = useContext(ThemeContext);
 
   return (
     <div
-      className={`max-w-full sm:max-w-lg mx-auto my-6 rounded-lg shadow-lg ${
-        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-      }`}
+      className={`max-w-full sm:max-w-lg mx-auto my-6 rounded-lg shadow-lg ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+        }`}
     >
       {/* Header: User Info */}
-      <div className="flex items-center px-4 py-3">
-        <img
-          src={
-            user.avatar ||
-            "https://cdn.pixabay.com/photo/2024/10/18/03/16/ai-generated-9129245_1280.jpg"
-          }
-          alt="User Avatar"
-          className="w-10 h-10 rounded-full border border-gray-300"
-        />
-        <div className="ml-4">
-          <p className="font-semibold text-sm">{user.fullname}</p>
-          <p
-            className={`text-xs ${
-              darkMode ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
-            {new Date(`${post.updatedAt}`).toLocaleDateString()}
-            {/* {post.updatedAt} */}
-          </p>
+      <Link to={`${username}/profile`}>
+        <div className="flex items-center px-4 py-3">
+          <img
+            src={
+              avatar ||
+              "https://cdn.pixabay.com/photo/2024/10/18/03/16/ai-generated-9129245_1280.jpg"
+            }
+            alt="User Avatar"
+            className="w-10 h-10 rounded-full border border-gray-300"
+          />
+          <div className="ml-4">
+            <p className="font-semibold text-sm">{fullname}</p>
+            <p
+              className={`text-xs ${darkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+            >
+              {new Date(`${updatedAt}`).toLocaleDateString()}
+              {/* {post.updatedAt} */}
+            </p>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Post Description */}
-      <p className="mx-4 text-sm sm:text-base">{post.description}</p>
+      <p className="mx-4 text-sm sm:text-base">{description}</p>
 
       {/* Post Content: Image */}
       <div className="mt-4">
         <img
-          src={post.post}
+          src={post}
           alt="Post Content"
           className="w-full h-[65vh] object-cover rounded-lg"
         />

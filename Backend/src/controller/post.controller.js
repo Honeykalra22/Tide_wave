@@ -59,7 +59,6 @@ const addPost = asyncHandler(async (req, res) => {
         )
 })
 
-
 const deletePost = asyncHandler(async (req, res) => {
 
     const { postId } = req.params
@@ -91,12 +90,15 @@ const deletePost = asyncHandler(async (req, res) => {
 
 })
 
-
+const getFollowingPost = asyncHandler(async(req, res) => {
+    
+})
 
 
 export {
     addPost,
     deletePost,
+    getFollowingPost,
 }
 
 

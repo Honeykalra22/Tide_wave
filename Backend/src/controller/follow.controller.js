@@ -134,6 +134,118 @@ const followTheUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { followedBy, followedTo, followTheUser };
+const followersDetails = asyncHandler(async (req, res) => {
+  const userId = req.user?._id;
+  if (!userId) {
+    throw new apiError(400, "User ID is missing");
+  }
+
+  const followersData = await User.aggregate([
+    {
+      $match: {
+        _id: new mongoose.Types.ObjectId(userId),
+      },
+    },
+    {
+      $lookup: {
+        from: "users",
+        localField: "followedTo", // Field in User schema containing IDs of followers
+        foreignField: "_id",
+        as: "followers",
+        pipeline: [
+          // Fetch followers' basic details
+          {
+            $project: {
+              _id: 1,
+              username: 1,
+              fullname: 1,
+              avatar: 1,
+              updatedAt: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
+      $unwind: "$followers",
+    },
+    {
+      $lookup: {
+        from: "posts",
+        localField: "followers._id",
+        foreignField: "owner",
+        as: "followersPosts",
+      },
+    },
+    {
+      $lookup: {
+        from: "tweets",
+        localField: "followers._id",
+        foreignField: "owner",
+        as: "followersTweets",
+      },
+    },
+    {
+      $group: {
+        _id: "$_id",
+        followers: {
+          $push: {
+            username: "$followers.username",
+            fullname: "$followers.fullname",
+            avatar: "$followers.avatar",
+            posts: {
+              $map: {
+                input: "$followersPosts",
+                as: "post",
+                in: {
+                  _id: "$$post._id",
+                  post: "$$post.post",
+                  description: "$$post.description",
+                  views: "$$post.views",
+                  updatedAt: '$$post.updatedAt',
+                  likedBy: { $ifNull: ["$$post.likedBy", []] },
+                  likedCount: { $size: { $ifNull: ["$$post.likedBy", []] } },
+                },
+              },
+            },
+            tweets: {
+              $map: {
+                input: "$followersTweets",
+                as: "tweet",
+                in: {
+                  _id: "$$tweet._id",
+                  content: "$$tweet.content",
+                  updatedAt: '$$tweet.updatedAt',
+                  likedBy: { $ifNull: ["$$tweet.likedBy", []] },
+                  likedCount: { $size: { $ifNull: ["$$tweet.likedBy", []] } },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        followers: 1,
+      },
+    },
+  ]);
+
+  // if (!followersData || followersData.length === 0) {
+  //   throw new apiError(404, "No followers found");
+  // }
+
+  return res
+    .status(200)
+    .json(
+      200,
+      new apiResponse(200, followersData[0], "Followers fetched successfully")
+    );
+});
+
+
+export { followedBy, followedTo, followTheUser, followersDetails };
 
 // check this on postman first then start

@@ -7,9 +7,9 @@ export const AuthContextProvider = ({ children }) => {
   const url = "http://localhost:8000/api/v2";
 
   const [user, setUser] = useState(null);
-  const [updated, setUpdated] = useState(null);
+  const [followerData, setFollowerData] = useState({ followers: [] });
 
-  const  token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("accessToken");
 
   const userdetails = async () => {
     try {
@@ -35,18 +35,14 @@ export const AuthContextProvider = ({ children }) => {
         followers: followResponse.data.data.followers,
         following: followResponse.data.data.following.length,
       });
-      console.log("user data is: ", userdata);
-      console.log("Tweet Id is: ", userdata.userTweets[0]._id);
-      // console.log('avatar is: ', userdata.avatar)
+      console.log("User data is:", userdata);
     } catch (error) {
-      console.error("Error fetching user details:", error);
+      console.error("Error fetching user details:", error.response?.data || error.message);
       setUser(null);
     }
   };
 
   const likeTweet = async (tweetId) => {
-    // url is {url}/post/:tweetId/liked POST
-    // const tweetId = user.tweets[0]._id
     try {
       const TweetLikeresponse = await axios.post(
         `${url}/tweet/${tweetId}/like`,
@@ -58,18 +54,20 @@ export const AuthContextProvider = ({ children }) => {
         }
       );
 
-      setUser({
-        ...user,
-        tweetlikedBy: TweetLikeresponse.data.data.likedBy,
-        tweetlikes: TweetLikeresponse.data.data.likedCount || 0,
-      });
+      setUser((prevUser) => ({
+        ...prevUser,
+        tweets: prevUser.tweets.map((tweet) =>
+          tweet._id === tweetId
+            ? { ...tweet, likedBy: TweetLikeresponse.data.data.likedBy, likedCount: TweetLikeresponse.data.data.likedCount }
+            : tweet
+        ),
+      }));
     } catch (error) {
-      console.log("error while liking the post");
+      console.log("Error while liking the tweet:", error.response?.data || error.message);
     }
   };
 
   const likePost = async (postId) => {
-    // const postId = user.posts._id;
     try {
       const PostLikeresponse = await axios.post(
         `${url}/post/${postId}/liked`,
@@ -80,19 +78,60 @@ export const AuthContextProvider = ({ children }) => {
           },
         }
       );
-      setUser({
-        ...user,
-        postlikedBy: PostLikeresponse.data.data.likedBy,
-        postlikes: PostLikeresponse.data.data.likedCount,
-      });
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        posts: prevUser.posts.map((post) =>
+          post._id === postId
+            ? { ...post, likedBy: PostLikeresponse.data.data.likedBy, likedCount: PostLikeresponse.data.data.likedCount }
+            : post
+        ),
+      }));
     } catch (error) {
-      console.log("error while liking the post");
+      console.log("Error while liking the post:", error.response?.data || error.message);
     }
   };
 
+  const followerPost = async () => {
+    try {
+      console.log('first step for follower details')
+      const response = await axios.get(`${url}/user/followersdetails`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      console.log("Response data:", response.data);
+  
+      const followersData = response.data.data.followers.map((follower) => ({
+        username: follower.username,
+        fullname: follower.fullname,
+        avatar: follower.avatar,
+        posts: follower.posts || [], // Default to empty array if undefined
+        tweets: follower.tweets || [], // Default to empty array if undefined
+      }));
+  
+      setFollowerData({
+        followers: followersData,
+      });
+    } catch (error) {
+      console.error("Error fetching follower details:", error.response?.data || error.message);
+    }
+  };
+  
+
   return (
     <AuthContext.Provider
-      value={{ userdetails, user, token, url, likeTweet, likePost }}
+      value={{
+        userdetails,
+        user,
+        token,
+        url,
+        likeTweet,
+        likePost,
+        followerData,
+        followerPost,
+      }}
     >
       {children}
     </AuthContext.Provider>

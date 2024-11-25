@@ -21,12 +21,10 @@ function Sidebar() {
     }
   }, [isLoggedIn]);
 
-  const handleLogout = async() => {
+  const handleLogout = async () => {
     try {
-      const response = await axios.post(`${url}/user/logout`, 
-        {
-          token: ''
-        },
+      const response = await axios.post(`${url}/user/logout`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -34,25 +32,25 @@ function Sidebar() {
         }
       )
 
-      if(response.status === 200) {
+      if (response.status === 200) {
         console.log('logout function is running ');
         localStorage.removeItem('accessToken')
         navigate('/login')
       }
     } catch (error) {
       console.error("Error while logging out:", error.response?.data || error.message);
+      localStorage.removeItem('accessToken')
+      navigate('/login')
     }
   };
 
   return (
 
-    <div className={`${
-      darkMode ? "bg-gray-800 text-white":"bg-gray-100 text-black"
-    } flex flex-col lg:flex-row `}>
+    <div className={`${darkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
+      } flex flex-col lg:flex-row `}>
       <aside
-        className={`w-full p-4 border-r ${
-          darkMode ? "bg-gray-800" : "bg-gray-900"
-        }`}
+        className={`w-full p-4 border-r ${darkMode ? "bg-gray-800" : "bg-gray-900"
+          }`}
       >
         <nav className="space-y-5 flex flex-col">
           {/* User Profile */}
@@ -60,7 +58,6 @@ function Sidebar() {
             <Link to={`/${user.username}/profile`}>
               <div className="flex items-center space-x-4 mb-4">
                 <img
-                  // src={user.avatar}
                   src={
                     user.avatar ||
                     "https://cdn.pixabay.com/photo/2024/10/18/03/16/ai-generated-9129245_1280.jpg"
@@ -69,9 +66,8 @@ function Sidebar() {
                   className="w-10 h-10 rounded-full border border-gray-400"
                 />
                 <span
-                  className={`text-lg font-semibold ${
-                    darkMode ? "text-gray-300" : "text-gray-600"
-                  }`}
+                  className={`text-lg font-semibold ${darkMode ? "text-gray-300" : "text-gray-600"
+                    }`}
                 >
                   {user.username}
                 </span>
@@ -80,11 +76,10 @@ function Sidebar() {
           )}
           <Link
             to={`/${user?.username}`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -106,11 +101,10 @@ function Sidebar() {
           </Link>
           <Link
             to={`/${user?.username}/search`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -133,11 +127,10 @@ function Sidebar() {
           </Link>
           <Link
             to={`/${user?.username}/message`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -160,11 +153,10 @@ function Sidebar() {
           </Link>
           <Link
             to={`/${user?.username}/tweet`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -187,11 +179,10 @@ function Sidebar() {
           </Link>
           <Link
             to={`/${user?.username}/addpost`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -219,11 +210,10 @@ function Sidebar() {
           </Link>
           <Link
             to={`/${user?.username}/profile`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -245,11 +235,10 @@ function Sidebar() {
           </Link>
           <Link
             to={`${user?.username}/editProfile`}
-            className={`block text-lg ${
-              darkMode
+            className={`block text-lg ${darkMode
                 ? "text-gray-300 hover:text-white"
                 : "text-gray-600 hover:text-blue-600"
-            }`}
+              }`}
           >
             <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
@@ -279,22 +268,20 @@ function Sidebar() {
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
-              className={`block text-lg ${
-                darkMode
+              className={`block text-lg ${darkMode
                   ? "text-red-500 hover:text-white"
                   : "text-red-600 hover:text-red-700"
-              }`}
+                }`}
             >
               Logout
             </button>
           ) : (
             <Link
               to="/login"
-              className={`block text-lg ${
-                darkMode
+              className={`block text-lg ${darkMode
                   ? "text-green-400 hover:text-white"
                   : "text-green-600 hover:text-green-700"
-              }`}
+                }`}
             >
               Login
             </Link>
