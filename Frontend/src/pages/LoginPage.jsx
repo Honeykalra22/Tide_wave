@@ -25,7 +25,7 @@ const Login = () => {
         // const url = 'tide-wave-tuoq.vercel.app';
         const url = 'https://tide-wave-b2pq-qk2ozcmmr-hitesh-kalras-projects.vercel.app/'
         try {
-            const response = await axios.post(`${url}/login`, data);
+            const response = await axios.post(`${url}/user/login`, data);
     
             // Extract accessToken based on actual response structure
             const token = response.data.data.accessToken;
