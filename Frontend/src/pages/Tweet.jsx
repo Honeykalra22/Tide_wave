@@ -12,7 +12,7 @@ function TweetBox() {
   const [tweets, setTweets] = useState([]);
   const [error, setError] = useState(null);
   // const [time, setTime] = useState("Just Now");
-  const url = "tide-wave-x7pw.vercel.app";
+  const url = "tide-wave-tuoq.vercel.app";
 
   const { user } = useContext(AuthContext);
   const posts = user?.posts || [];

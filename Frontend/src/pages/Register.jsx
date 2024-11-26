@@ -17,7 +17,7 @@ function Register() {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        const url = 'tide-wave-x7pw.vercel.app';
+        const url = 'tide-wave-tuoq.vercel.app';
 
         // Prepare form data for submission
         const formData = new FormData();
