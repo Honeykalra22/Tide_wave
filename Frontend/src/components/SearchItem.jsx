@@ -13,7 +13,7 @@ function SearchItem(item) {
                         <img src={item.avatar} alt={item.username} className="w-full h-full object-cover rounded-full" />
                     </div>
                     <div className="flex flex-col">
-                        <p className="font-semibold text-lg">{item.username}</p>
+                        <p className="font-semibold text-zinc-100 text-lg">{item.username}</p>
                         <p className="text-gray-500">{item.fullname}</p>
                     </div>
                 </div>

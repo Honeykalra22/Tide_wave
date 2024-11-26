@@ -1,9 +1,10 @@
 import React from 'react'
+import Sidebar from '../pages/Sidebar'
 
 function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-10" style={{ boxShadow: '0 -4px 10px rgba(0, 0, 0, 0.25)' }}>
-      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container mx-auto px-6 grid grid-cols-2 md:grid-cols-3 gap-8">
         {/* Brand and Description */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left">
           <h2 className="text-3xl font-bold text-sky-500 mb-2" style={{ fontFamily: 'cursive' }}>Tide-Wave</h2>
@@ -59,7 +60,7 @@ function Footer() {
           </div>
         </div>
       </div>
-
+      
       {/* Footer Bottom */}
       <div className="text-center text-gray-500 text-sm mt-10">
         &copy; {new Date().getFullYear()} Tide-Wave. All rights reserved.

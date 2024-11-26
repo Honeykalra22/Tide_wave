@@ -44,7 +44,7 @@ const Profile = () => {
           className="w-full h-64 object-cover"
         />
         {/* Avatar Overlay */}
-        <div className="flex">
+        <div className="md:flex text-center">
           <div>
             <div className="absolute top-56 left-[10rem] transform -translate-x-1/2">
               <img
@@ -69,7 +69,7 @@ const Profile = () => {
               </Link>
             </div>
           </div>
-          <div className="mt-[5rem]">
+          <div className="md:mt-[5rem] mx-10">
             <p className="text-gray-500 ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
               Repellendus at
@@ -79,26 +79,26 @@ const Profile = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="flex justify-start mx-[4rem] space-x-16 mt-8 items-center mb-6">
+      <div className="flex justify-between md:mx-[4rem] md:space-x-16 mt-8 items-center mb-6">
         <div className="text-center">
-          <p className="text-xl font-bold">{user.followers}</p>
-          <p className="text-xl text-gray-500">Followers</p>
+          <p className="md:text-xl text-lg font-bold">{user.followers}</p>
+          <p className="md:text-xl text-lg text-gray-500">Followers</p>
         </div>
         <div className="text-center">
-          <p className="text-xl font-bold">{user.following}</p>
-          <p className="text-xl text-gray-500">Following</p>
+          <p className="md:text-xl text-lg font-bold">{user.following}</p>
+          <p className="md:text-xl text-lg text-gray-500">Following</p>
         </div>
         <div className="text-center">
-          <p className="text-xl font-bold">{user.posts.length}</p>
-          <p className="text-xl text-gray-500">Posts</p>
+          <p className="md:text-xl text-lg font-bold">{user.posts.length}</p>
+          <p className="md:text-xl text-lg text-gray-500">Posts</p>
         </div>
         <div className="text-center">
-          <p className="text-xl font-bold">{user.tweets.length}</p>
-          <p className="text-xl text-gray-500">Tweets</p>
+          <p className="md:text-xl text-lg font-bold">{user.tweets.length}</p>
+          <p className="md:text-xl text-lg text-gray-500">Tweets</p>
         </div>
         <Link to={`/${user.username}/editProfile`}>
         <div className="">
-          <button className="bg-gray-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-gray-600 transition-all">
+          <button className="bg-gray-500 text-white px-3 md:px-6 py-2 rounded-lg shadow-lg hover:bg-gray-600 transition-all">
             Edit Profile
           </button>
         </div>

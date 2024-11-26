@@ -52,7 +52,7 @@ const Search = () => {
 
   return (
     <div className="flex flex-col items-center p-6">
-      <h1 className="text-2xl font-bold mb-4 capitalize">search people according to your prefarence</h1>
+      <h1 className="md:text-2xl text-center text-xl font-bold mb-4 capitalize">search people according to your prefarence</h1>
       <form onSubmit={handleSearch} className="flex items-center gap-2 mb-4">
         <input
           type="text"

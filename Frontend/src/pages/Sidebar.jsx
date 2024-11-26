@@ -47,26 +47,27 @@ function Sidebar() {
   return (
 
     <div className={`${darkMode ? "bg-gray-800 text-white" : "bg-gray-100 text-black"
-      } flex flex-col lg:flex-row `}>
+      } flex md:flex-col`}>
       <aside
-        className={`w-full p-4 border-r ${darkMode ? "bg-gray-800" : "bg-gray-900"
+        className={`w-full p-1 md:p-10 ${darkMode ? "bg-gray-800" : "bg-gray-900"
           }`}
       >
-        <nav className="space-y-5 flex flex-col">
+        <nav className="flex h-16 md:py-24 py-1 mx-2 items-center justify-between md:flex-col md:h-auto md:space-y-5">
+
           {/* User Profile */}
           {isLoggedIn && user && (
             <Link to={`/${user.username}/profile`}>
-              <div className="flex items-center space-x-4 mb-4">
+              <div className="items-center mb-4 hidden space-x-6 md:flex md:space-x-6">
                 <img
                   src={
                     user.avatar ||
                     "https://cdn.pixabay.com/photo/2024/10/18/03/16/ai-generated-9129245_1280.jpg"
                   }
                   alt="User Avatar"
-                  className="w-10 h-10 rounded-full border border-gray-400"
+                  className="w-12 h-12 rounded-full md:border border-gray-400"
                 />
                 <span
-                  className={`text-lg font-semibold ${darkMode ? "text-gray-300" : "text-gray-600"
+                  className={`text-xl font-semibold ${darkMode ? "text-gray-300" : "text-gray-600"
                     }`}
                 >
                   {user.username}
@@ -74,14 +75,15 @@ function Sidebar() {
               </div>
             </Link>
           )}
+
           <Link
             to={`/${user?.username}`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 md:border py-2 md:px-10 justify-center items-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="white"
@@ -96,17 +98,17 @@ function Sidebar() {
                   d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                 />
               </svg>
-              <p className="">Home</p>
+              <p className="hidden md:flex">Home</p>
             </div>
           </Link>
           <Link
             to={`/${user?.username}/search`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 items-center md:border py-2 md:px-9 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -122,17 +124,17 @@ function Sidebar() {
                 />
               </svg>
 
-              <p>Search</p>
+              <p className="hidden md:flex">Search</p>
             </div>
           </Link>
           <Link
             to={`/${user?.username}/message`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 items-center md:border py-2 md:px-6 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -148,17 +150,17 @@ function Sidebar() {
                 />
               </svg>
 
-              <p>Messages</p>
+              <p className="hidden md:flex">Messages</p>
             </div>
           </Link>
           <Link
             to={`/${user?.username}/tweet`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 items-center md:border py-2 md:px-9 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -174,17 +176,17 @@ function Sidebar() {
                 />
               </svg>
 
-              <p>Tweet</p>
+              <p className="hidden md:flex">Tweet</p>
             </div>
           </Link>
           <Link
             to={`/${user?.username}/addpost`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 items-center md:border py-2 md:px-10 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -205,17 +207,17 @@ function Sidebar() {
                 />
               </svg>
 
-              <p>Post</p>
+              <p className="hidden md:flex">Post</p>
             </div>
           </Link>
           <Link
             to={`/${user?.username}/profile`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 items-center md:border py-2 md:px-8 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill=""
@@ -230,17 +232,17 @@ function Sidebar() {
                   d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
                 />
               </svg>
-              <p>Profile</p>
+              <p className="hidden md:flex">Profile</p>
             </div>
           </Link>
           <Link
             to={`${user?.username}/editProfile`}
             className={`block text-lg ${darkMode
-                ? "text-gray-300 hover:text-white"
-                : "text-gray-600 hover:text-blue-600"
+              ? "text-gray-300 hover:text-white"
+              : "text-gray-600 hover:text-blue-600"
               }`}
           >
-            <div className="flex space-x-5 items-center border py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
+            <div className="flex space-x-5 items-center md:border md:px-6 py-2 justify-center rounded-lg font-semibold hover:bg-gray-900 focus:bg-gray-900">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -261,7 +263,7 @@ function Sidebar() {
                 />
               </svg>
 
-              <p>Settings</p>
+              <p className="hidden md:flex">Settings</p>
             </div>
           </Link>
 
@@ -269,8 +271,8 @@ function Sidebar() {
             <button
               onClick={handleLogout}
               className={`block text-lg ${darkMode
-                  ? "text-red-500 hover:text-white"
-                  : "text-red-600 hover:text-red-700"
+                ? "text-red-500 hover:text-white"
+                : "text-red-600 hover:text-red-700"
                 }`}
             >
               Logout
@@ -279,8 +281,8 @@ function Sidebar() {
             <Link
               to="/login"
               className={`block text-lg ${darkMode
-                  ? "text-green-400 hover:text-white"
-                  : "text-green-600 hover:text-green-700"
+                ? "text-green-400 hover:text-white"
+                : "text-green-600 hover:text-green-700"
                 }`}
             >
               Login
