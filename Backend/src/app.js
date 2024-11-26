@@ -21,7 +21,9 @@ app.use(
     credentials: true,
   })
 );
-
+app.get('/', (req, res) => {
+  res.json("Hello")
+})
 app.use(express.json({ limit: "128kb" }));
 app.use(express.urlencoded({ extended: true, limit: "128kb" }));
 app.use(cookieParser());
