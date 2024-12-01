@@ -4,7 +4,7 @@ import React, { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
-  const url = "tide-wave-tuoq.vercel.app";
+  const url = "tide-wave-tuoq.vercel.app/api/v2";
 
   const [user, setUser] = useState(null);
   const [followerData, setFollowerData] = useState({ followers: [] });

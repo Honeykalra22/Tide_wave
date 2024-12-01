@@ -22,7 +22,7 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const url = 'tide-wave-tuoq.vercel.app';
+        const url = 'tide-wave-tuoq.vercel.app/api/v2';
         // const url = 'https://tide-wave-b2pq-qk2ozcmmr-hitesh-kalras-projects.vercel.app'
         try {
             const response = await axios.post(`${url}/api/v2/user/login`, data);
