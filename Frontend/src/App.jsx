@@ -15,7 +15,6 @@ import Search from './pages/Search';
 import TweetBox from './pages/Tweet';
 import Profile from './pages/Profile';
 import { AuthContext } from './Context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const { darkMode } = useContext(ThemeContext);

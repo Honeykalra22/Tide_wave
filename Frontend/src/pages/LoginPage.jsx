@@ -1,10 +1,8 @@
 import React, { useContext, useState } from 'react';
-// import { Api } from '../service/Api';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthContext';
 
-const {url } = useContext(AuthContext)
 const Login = () => {
     const [data, setData] = useState({
         username: "",
@@ -12,6 +10,7 @@ const Login = () => {
     });
 
     const navigate = useNavigate();
+    const {url} = useContext(AuthContext)
 
     axios.interceptors.request.use((config) => {
         const token = localStorage.getItem('accessToken');
