@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 // import { Api } from '../service/Api';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthContext';
 
+const {url } = useContext(AuthContext)
 const Login = () => {
     const [data, setData] = useState({
         username: "",
@@ -22,10 +24,8 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const url = 'https://tide-wave-tuoq.vercel.app';
-        // const url = 'https://tide-wave-b2pq-qk2ozcmmr-hitesh-kalras-projects.vercel.app'
         try {
-            const response = await axios.post(`${url}/api/v2/user/login`, data);
+            const response = await axios.post(`${url}/user/login`, data);
     
             // Extract accessToken based on actual response structure
             const token = response.data.data.accessToken;

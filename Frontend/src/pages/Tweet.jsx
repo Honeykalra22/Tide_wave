@@ -2,20 +2,14 @@ import React, { useState, useContext } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
 import axios from "axios";
 import { AuthContext } from "../Context/AuthContext";
-import { Link } from "react-router-dom";
 import Tweet_design from "../components/Tweet_design";
-import Postdesign from "../components/Postdesign";
 
 function TweetBox() {
   const { darkMode } = useContext(ThemeContext);
   const [tweetContent, setTweetContent] = useState("");
   const [tweets, setTweets] = useState([]);
   const [error, setError] = useState(null);
-  // const [time, setTime] = useState("Just Now");
-  const url = "tide-wave-tuoq.vercel.app/api/v2";
-
-  const { user } = useContext(AuthContext);
-  const posts = user?.posts || [];
+  const { user, url } = useContext(AuthContext);
   const tweetsuser = user?.tweets || []
 
   const handleTweetSubmit = async (e) => {

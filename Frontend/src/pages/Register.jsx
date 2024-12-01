@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../Context/AuthContext';
 
 function Register() {
     const [data, setData] = useState({
@@ -12,12 +13,12 @@ function Register() {
 
     const [avatarPreview, setAvatarPreview] = useState(null);
     const [coverImagePreview, setCoverImagePreview] = useState(null);
+    const {url} = useContext(AuthContext)
 
     const navigate = useNavigate()
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        const url = 'tide-wave-tuoq.vercel.app/api/v2';
 
         // Prepare form data for submission
         const formData = new FormData();
