@@ -9,12 +9,13 @@ import Sidebar from './pages/Sidebar';
 import { useContext } from 'react';
 import { ThemeContext } from './Context/ThemeContext';
 import ImageUploader from './components/AddPost';
-import MessageSend from './pages/MessageSend';
 import EditDetails from './pages/EditDetails';
 import Search from './pages/Search';
 import TweetBox from './pages/Tweet';
 import Profile from './pages/Profile';
 import { AuthContext } from './Context/AuthContext';
+import Message from './components/Messgae';
+import NotFound from './ErrorPage/Notfound';
 
 function App() {
   const { darkMode } = useContext(ThemeContext);
@@ -103,7 +104,7 @@ function App() {
               path="/:username/message"
               element={
                 isLoggedIn && user ? (
-                  <MessageSend />
+                  <Message />
                 ) : (
                   <Navigate to="/login" replace />
                 )
@@ -124,7 +125,7 @@ function App() {
             <Route path="/" element={<Navigate to="/login" replace />} />
 
             {/* 404 Page */}
-            <Route path="*" element={<div>404 Page Not Found</div>} />
+            <Route path="*" element={<NotFound/>} />
           </Routes>
         </div>
 
