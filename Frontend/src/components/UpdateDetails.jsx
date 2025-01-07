@@ -67,8 +67,8 @@ const UpdateDetails = () => {
               id="username"
               placeholder="Enter your username"
               className={`p-3 border rounded-md focus:ring-2 focus:ring-blue-500 ${darkMode
-                  ? "bg-gray-700 border-gray-600 text-white"
-                  : "bg-gray-100 border-gray-300 text-black"
+                ? "bg-gray-700 border-gray-600 text-white"
+                : "bg-gray-100 border-gray-300 text-black"
                 }`}
               onChange={handleChange}
               value={data.username}
@@ -89,8 +89,8 @@ const UpdateDetails = () => {
               id="fullname"
               placeholder="Enter your full name"
               className={`p-3 border rounded-md focus:ring-2 focus:ring-blue-500 ${darkMode
-                  ? "bg-gray-700 border-gray-600 text-white"
-                  : "bg-gray-100 border-gray-300 text-black"
+                ? "bg-gray-700 border-gray-600 text-white"
+                : "bg-gray-100 border-gray-300 text-black"
                 }`}
               onChange={handleChange}
               value={data.fullname}
@@ -106,8 +106,8 @@ const UpdateDetails = () => {
         <button
           type="submit"
           className={`w-full py-3 rounded-md transition-all ${darkMode
-              ? "bg-blue-600 hover:bg-blue-700 text-white"
-              : "bg-blue-500 hover:bg-blue-600 text-white"
+            ? "bg-blue-600 hover:bg-blue-700 text-white"
+            : "bg-blue-500 hover:bg-blue-600 text-white"
             }`}
         >
           Update Details
